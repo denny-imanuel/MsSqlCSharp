@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: mssql
+    hostname: mssql
+    ports:
+      - 1433:1433
+    restart: always
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=ABCabc123!
+      - MSSQL_PID=Express
+
+  cloudbeaver:
+    image: dbeaver/cloudbeaver:latest
+    container_name: cloudbeaver
+    hostname: cloudbeaver
+    ports:
+      - 8080:8978
+    restart: always
+    links:
+      - mssql
+      
